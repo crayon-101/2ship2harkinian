@@ -235,7 +235,7 @@ jobs:
       run: |
         $f = Get-ChildItem -Recurse -Path libultraship -Filter SDLGyroMapping.cpp | Select-Object -First 1
         $src = Get-Content $f.FullName -Raw
-        $new = $src -replace 'y = \(gyroData\[1\] - mNeutralYaw\)', 'y = (gyroData[2] - mNeutralRoll)'
+        $new = $src -replace 'y = \(gyroData\[1\] - mNeutralYaw\)', 'y = -(gyroData[2] - mNeutralRoll)'
         if ($new -eq $src) { throw "Gyro line not found - patch failed" }
         Set-Content -Path $f.FullName -Value $new -NoNewline
     - name: Configure sccache
